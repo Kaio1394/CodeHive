@@ -1,0 +1,10 @@
+app:
+  name: "CodeHive"
+
+server:
+  host: "localhost"
+  port: "8080"
+
+dataBase:
+  typeDatabase: "sqlite"
+  stringConnection: "host=localhost user=postgres password=Jkym139413$ dbname=ScheduleDb sslmode=disable"
