@@ -7,4 +7,4 @@ server:
 
 dataBase:
   typeDatabase: "sqlite"
-  stringConnection: "host=localhost user=postgres password=Jkym139413$ dbname=ScheduleDb sslmode=disable"
+  stringConnection: "CodeHive.db"

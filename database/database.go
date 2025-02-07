@@ -20,7 +20,7 @@ func ConnectDatabase() (*gorm.DB, error) {
 
 	var db *gorm.DB
 	switch typeDatabase {
-	case "postgres":
+	case "sqlite":
 		db, err = gorm.Open(sqlite.Open(connString), &gorm.Config{})
 	default:
 		logger.Log.Error("Database not supported: %s", typeDatabase)
@@ -32,7 +32,7 @@ func ConnectDatabase() (*gorm.DB, error) {
 		return nil, err
 	}
 
-	if err := db.AutoMigrate(&model.Code{}); err != nil {
+	if err := db.AutoMigrate(&model.Code{}, &model.Language{}); err != nil {
 		logger.Log.Error("Error running migration: ", err)
 	}
 

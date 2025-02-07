@@ -8,7 +8,7 @@ import (
 func ConfigSet() (Config, error) {
 	viper.SetConfigName("config")
 	viper.SetConfigType("yaml")
-	viper.AddConfigPath("config")
+	viper.AddConfigPath("tools")
 
 	if err := viper.ReadInConfig(); err != nil {
 		logger.Log.Error(err)
