@@ -14,6 +14,6 @@ func NewCodeServiceImpl(rc *code.CodeRepositoryImpl) *CodeServiceImpl {
 	return &CodeServiceImpl{rc: rc}
 }
 
-func (c CodeServiceImpl) Create(ctx context.Context, code *model.Code) (int, error) {
+func (c *CodeServiceImpl) Create(ctx context.Context, code *model.Code) (int, error) {
 	return c.rc.Create(ctx, code)
 }

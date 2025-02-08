@@ -23,6 +23,7 @@ func main() {
 	logger.Log.Info("Start application " + configs.App.Name)
 	r := gin.Default()
 	routes.RegisterCodeRoutes(r, db)
+	routes.RegisterLanguageRoutes(r, db)
 
-	r.Run(":" + configs.Server.Port)
+	_ = r.Run(":" + configs.Server.Port)
 }
