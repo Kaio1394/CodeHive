@@ -12,6 +12,8 @@ func RegisterLanguageRoutes(r *gin.Engine, db *gorm.DB) {
 	cr := lr.NewLanguageRepositoryImpl(db)
 	cs := ls.NewLanguageServiceImpl(cr)
 	cc := controller.NewLanguageController(cs)
-	r.POST("/language/create", cc.CreateLanguage)
-	r.PUT("/language/update", cc.UpdateLanguage)
+	r.POST("/language", cc.CreateLanguage)
+	r.PUT("/language", cc.UpdateLanguage)
+	r.DELETE("/language", cc.DeleteLanguageById)
+	r.GET("/language", cc.GetListLanguage)
 }

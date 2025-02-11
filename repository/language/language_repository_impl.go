@@ -12,6 +12,28 @@ type LanguageRepositoryImpl struct {
 	db *gorm.DB
 }
 
+func (lr *LanguageRepositoryImpl) GetListLanguage(ctx context.Context) ([]model.Language, error) {
+	var ll []model.Language
+	if err := lr.db.WithContext(ctx).Find(&ll).Error; err != nil {
+		logger.Log.Error(err.Error())
+		return nil, err
+	}
+	return ll, nil
+}
+
+func (lr *LanguageRepositoryImpl) DeleteLanguageById(ctx context.Context, id int) error {
+	var l model.Language
+	if err := lr.db.WithContext(ctx).First(&l, id).Error; err != nil {
+		logger.Log.Error(err.Error())
+		return err
+	}
+	if err := lr.db.WithContext(ctx).Delete(&l).Error; err != nil {
+		logger.Log.Error(err.Error())
+		return err
+	}
+	return nil
+}
+
 func NewLanguageRepositoryImpl(db *gorm.DB) *LanguageRepositoryImpl {
 	return &LanguageRepositoryImpl{db: db}
 }

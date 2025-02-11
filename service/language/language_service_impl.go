@@ -25,3 +25,11 @@ func (ls *LanguageServiceImpl) GetLanguageById(ctx context.Context, id int) (mod
 func (ls *LanguageServiceImpl) UpdateLanguage(ctx context.Context, id int, language model.Language) error {
 	return ls.lr.UpdateLanguage(ctx, id, language)
 }
+
+func (ls *LanguageServiceImpl) DeleteLanguageById(ctx context.Context, id int) error {
+	return ls.lr.DeleteLanguageById(ctx, id)
+}
+
+func (ls *LanguageServiceImpl) GetAllLanguages(ctx context.Context) ([]model.Language, error) {
+	return ls.lr.GetListLanguage(ctx)
+}

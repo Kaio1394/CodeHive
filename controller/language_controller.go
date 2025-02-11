@@ -64,3 +64,30 @@ func (lc *LanguageController) UpdateLanguage(c *gin.Context) {
 		"message": "update language",
 	})
 }
+
+func (lc *LanguageController) DeleteLanguageById(c *gin.Context) {
+	id := c.GetHeader("id")
+	idInt, err := strconv.Atoi(id)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": errors.New("id is invalid").Error()})
+		return
+	}
+	err = lc.ls.DeleteLanguageById(context.Background(), idInt)
+	if err != nil {
+		logger.Log.Errorf("DeleteLanguage err: %v", err)
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{"message": "delete language"})
+}
+
+func (lc *LanguageController) GetListLanguage(c *gin.Context) {
+	ll, err := lc.ls.GetAllLanguages(context.Background())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"langauges": ll,
+	})
+}
