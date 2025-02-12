@@ -19,5 +19,5 @@ func RegisterCodeRoutes(r *gin.Engine, db *gorm.DB) {
 	cs := codeS.NewCodeServiceImpl(cr)
 	cc := codeC.NewCodeController(cs, ls)
 	r.POST("/code/create", cc.CreateCode)
-	r.GET("/code/list", cc.GetCodes)
+	r.GET("/code/list", cc.GetListCode)
 }

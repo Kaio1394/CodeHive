@@ -60,8 +60,13 @@ func (cc *CodeController) DeleteCode(c *gin.Context) {
 		"message": "delete successfull",
 	})
 }
-func (cc *CodeController) GetCodes(c *gin.Context) {
-	c.JSON(http.StatusAccepted, gin.H{
-		"message": "delete successfull",
+func (cc *CodeController) GetListCode(c *gin.Context) {
+	l, err := cc.cs.GetListCode(context.Background())
+	if err != nil {
+		c.JSON(http.StatusInternalServerError, gin.H{"error": err.Error()})
+		return
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"code_list": l,
 	})
 }

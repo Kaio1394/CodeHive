@@ -28,6 +28,14 @@ func (c *CodeRepositoryImpl) GetCodeById(ctx context.Context, id int) (model.Cod
 	}
 	return code, nil
 }
+func (c *CodeRepositoryImpl) GetListCode(ctx context.Context) ([]model.Code, error) {
+	var codes []model.Code
+	if err := c.db.WithContext(ctx).Find(&codes).Error; err != nil {
+		logger.Log.Error("Error to get a list of code: " + err.Error())
+		return nil, err
+	}
+	return codes, nil
+}
 
 func NewCodeRepositoryImpl(db *gorm.DB) *CodeRepositoryImpl {
 	return &CodeRepositoryImpl{db: db}

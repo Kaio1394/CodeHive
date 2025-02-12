@@ -17,3 +17,7 @@ func NewCodeServiceImpl(rc *code.CodeRepositoryImpl) *CodeServiceImpl {
 func (c *CodeServiceImpl) Create(ctx context.Context, code *model.Code) (int, error) {
 	return c.rc.Create(ctx, code)
 }
+
+func (c *CodeServiceImpl) GetListCode(ctx context.Context) ([]model.Code, error) {
+	return c.rc.GetListCode(ctx)
+}
