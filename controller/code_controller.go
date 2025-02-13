@@ -8,6 +8,7 @@ import (
 	"context"
 	"github.com/gin-gonic/gin"
 	"net/http"
+	"strconv"
 )
 
 type CodeController struct {
@@ -55,9 +56,20 @@ func (cc *CodeController) PutCode(c *gin.Context) {
 		"message": "update code",
 	})
 }
-func (cc *CodeController) DeleteCode(c *gin.Context) {
+func (cc *CodeController) GetCodeById(c *gin.Context) {
+	idStr := c.GetHeader("id")
+	id, err := strconv.Atoi(idStr)
+	if err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	cod, err := cc.cs.GetCodeById(context.Background(), id)
+	if err != nil {
+		c.JSON(http.StatusNotFound, gin.H{"error": err.Error()})
+		return
+	}
 	c.JSON(http.StatusAccepted, gin.H{
-		"message": "delete successfull",
+		"code": cod,
 	})
 }
 func (cc *CodeController) GetListCode(c *gin.Context) {

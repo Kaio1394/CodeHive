@@ -36,6 +36,18 @@ func (c *CodeRepositoryImpl) GetListCode(ctx context.Context) ([]model.Code, err
 	}
 	return codes, nil
 }
+func (c *CodeRepositoryImpl) Delete(ctx context.Context, id int) error {
+	var cod model.Code
+	if err := c.db.WithContext(ctx).First(&cod, id).Error; err != nil {
+		logger.Log.Error("Error to get a code: " + err.Error())
+		return err
+	}
+	if err := c.db.WithContext(ctx).Delete(&cod).Error; err != nil {
+		logger.Log.Error("Error to delete a code: " + err.Error())
+		return err
+	}
+	return nil
+}
 
 func NewCodeRepositoryImpl(db *gorm.DB) *CodeRepositoryImpl {
 	return &CodeRepositoryImpl{db: db}
